@@ -42,7 +42,7 @@
       }
     },
     data: () => ({
-      dialog: false
+      dialog: false,
     }),
     methods: {
       closeDialog(){

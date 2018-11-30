@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import AppBanner from "../components/AppBanner.vue";
 import RatingList from '../components/RatingList.vue';
 
@@ -45,16 +46,15 @@ export default {
   },
   methods: {
     updateApplication(){
-      // Call the backend server to get the current this application basing on this.$route.params.id
-      this.application = {
-        rating: 3,
-        name: 'Hello World',
-        description: 'Place holder',        
-      }
+      // Call the backend server to get the current this application basing on this.$route.params.id      
+      this.application = ApplicationList[this.$route.params.id];
     },
     updateRatings(){
       // Get the ratings of this application
-      this.ratings = ApplicationRatings;
+      let applicationId = this.$route.params.id;
+      let ratingsIdsForApp = Object.keys(ApplicationRatings).filter(
+        ratingId => (ApplicationRatings[ratingId].applicationId == applicationId));
+      this.ratings = _.pick(ApplicationRatings, ...ratingsIdsForApp);
     },
   }
 };

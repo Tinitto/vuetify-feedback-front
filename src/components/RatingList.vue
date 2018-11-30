@@ -72,7 +72,6 @@ export default {
       // Open a modal with the application's details
       this.selectedRating = application;
       this.showDialog = true;
-      console.log(application);
     },
     dividerIndex(ratingId) {
       return `divider${ratingId}`;
