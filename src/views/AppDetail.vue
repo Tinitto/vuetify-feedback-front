@@ -41,7 +41,8 @@ export default {
       let backendUrl = this.$route.query.backendUrl || DEFAULT_BACKEND_URL;
       let feedbackFormUrl = this.$route.query.feedbackFormUrl || FEEDBACK_FORM_URL;
       let encodedBackendUrl = encodeURIComponent(backendUrl);
-      return `${feedbackFormUrl}/?backendUrl=${encodedBackendUrl}&applicationId=${this.$route.params.id}`
+      let redirectUrl = encodeURIComponent(window.location.href);
+      return `${feedbackFormUrl}/?backendUrl=${encodedBackendUrl}&applicationId=${this.$route.params.id}&redirectUrl=${redirectUrl}`;
     }
   },
   methods: {
@@ -53,7 +54,7 @@ export default {
       // Get the ratings of this application
       let applicationId = this.$route.params.id;
       let ratingsIdsForApp = Object.keys(ApplicationRatings).filter(
-        ratingId => (ApplicationRatings[ratingId].applicationId == applicationId));
+        ratingId => (ApplicationRatings[ratingId].application == applicationId));
       this.ratings = _.pick(ApplicationRatings, ...ratingsIdsForApp);
     },
   }

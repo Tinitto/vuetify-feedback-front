@@ -5,7 +5,7 @@
         <v-card-title>
           <span class="headline">{{ rating.user }}</span>
           <v-spacer />
-          <span class="grey--text">{{ rating.created | moment("DD-MM-YYYY") }} </span>
+          <span class="grey--text">{{ rating.createdAt | moment("DD-MM-YYYY") }} </span>
         </v-card-title>
         <v-divider />
         <v-card-text class="text-xs-center">

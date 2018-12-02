@@ -54,7 +54,8 @@ export default {
       this.applicationList = ApplicationList;
     },
     feedbackFormLink(applicationId) {
-      return `${this.feedbackFormLinkPrefix}&applicationId=${applicationId}`;
+      let redirectUrl = encodeURIComponent(window.location.href);
+      return `${this.feedbackFormLinkPrefix}&applicationId=${applicationId}&redirectUrl=${redirectUrl}`;
     },
     applicationDetailUrl(applicationId) {
       let routeObject = this.$router.resolve({

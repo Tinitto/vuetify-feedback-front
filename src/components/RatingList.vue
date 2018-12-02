@@ -15,7 +15,7 @@
               <v-list-tile-content>
                 <v-list-tile-title>
                   <span>{{ rating.user }} </span>
-                  <small class="grey--text">{{ rating.created | moment("DD-MM-YYYY")}}</small>
+                  <small class="grey--text">{{ rating.createdAt | moment("DD-MM-YYYY")}}</small>
                 </v-list-tile-title>
                 <v-rating
                   v-model="rating.rating"
@@ -68,9 +68,9 @@ export default {
         .join("+");
       return `https://ui-avatars.com/api/?name=${userName}`;
     },
-    expandToModal(application) {
+    expandToModal(rating) {
       // Open a modal with the application's details
-      this.selectedRating = application;
+      this.selectedRating = rating;
       this.showDialog = true;
     },
     dividerIndex(ratingId) {
