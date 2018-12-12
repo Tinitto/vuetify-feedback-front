@@ -52,28 +52,28 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      rating: {
-        type: Number,
-        default: 0
-      },
-      detailUrl: {
-        type: String,
-        default: '#'
-      },
-      actionUrl: {
-        type: String,
-        default: '#'
-      },
-      applicationName: {
-        type: String,
-        default: 'Hello World'
-      },
-      applicationDescription: {
-        type: String,
-        default: 'A created app'
-      }
+export default {
+  props: {
+    rating: {
+      type: Number,
+      default: 0
+    },
+    detailUrl: {
+      type: String,
+      default: "#"
+    },
+    actionUrl: {
+      type: String,
+      default: "#"
+    },
+    applicationName: {
+      type: String,
+      default: "Hello World"
+    },
+    applicationDescription: {
+      type: String,
+      default: "A created app"
     }
   }
+};
 </script>

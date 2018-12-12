@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-sm>
     <v-layout row wrap>
-      <v-flex xs12 sm6 md4 lg3 v-for="application in applicationList" :key="application._id">
+      <v-flex xs12 sm6 md4 lg3 v-for="application in $store.state.applications.keyedById" :key="application._id">
         <app-rating-card
           :detail-url="applicationDetailUrl(application._id)"
           :rating="application.rating"
@@ -17,14 +17,18 @@
 <script>
 import AppRatingCard from "../components/AppRatingCard.vue";
 import { FEEDBACK_FORM_URL, DEFAULT_BACKEND_URL } from "../assets/config.js";
-import ApplicationList from "../assets/factoryApplicationList.js";
+import authErrorHandler from "../assets/authErrorHandler.js";
+import { mapActions, mapMutations } from "vuex";
+
 export default {
-  data: () => ({
-    applicationList: {}
-  }),
   created() {
     // initialize the application list
-    this.updateApplicationList();
+    this.updateApplicationList().catch(err => {
+      authErrorHandler(err, this.authenticate, () => {
+        this.clearAuthenticateError();
+        this.updateApplicationList();
+      });
+    });
   },
   components: {
     AppRatingCard
@@ -49,12 +53,17 @@ export default {
     }
   },
   methods: {
-    updateApplicationList() {
-      // goes to the backend to retrieve application list
-      this.applicationList = ApplicationList;
-    },
+    ...mapActions("auth", {
+      authenticate: "authenticate"
+    }),
+    ...mapActions("applications", {
+      updateApplicationList: "find"
+    }),
     feedbackFormLink(applicationId) {
-      return `${this.feedbackFormLinkPrefix}&applicationId=${applicationId}`;
+      let redirectUrl = encodeURIComponent(window.location.href);
+      return `${
+        this.feedbackFormLinkPrefix
+      }&applicationId=${applicationId}&redirectUrl=${redirectUrl}`;
     },
     applicationDetailUrl(applicationId) {
       let routeObject = this.$router.resolve({
@@ -63,7 +72,10 @@ export default {
         query: this.routeQuery
       });
       return routeObject.href;
-    }
+    },
+    ...mapMutations("auth", {
+      clearAuthenticateError: "clearAuthenticateError"
+    })
   }
 };
 </script>

@@ -5,7 +5,7 @@
         <v-card-title>
           <span class="headline">{{ rating.user }}</span>
           <v-spacer />
-          <span class="grey--text">{{ rating.created | moment("DD-MM-YYYY") }} </span>
+          <span class="grey--text">{{ rating.createdAt | moment("DD-MM-YYYY") }} </span>
         </v-card-title>
         <v-divider />
         <v-card-text class="text-xs-center">
@@ -31,25 +31,25 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      value: {
-        default: false
-      },
-      rating: {
-        type: Object,
-        required: true,
-      }
+export default {
+  props: {
+    value: {
+      default: false
     },
-    data: () => ({
-      dialog: false,
-    }),
-    methods: {
-      closeDialog(){
-        // update the v-modal
-        this.dialog = false;
-        this.$emit('input', this.dialog);
-      }
+    rating: {
+      type: Object,
+      required: true
+    }
+  },
+  data: () => ({
+    dialog: false
+  }),
+  methods: {
+    closeDialog() {
+      // update the v-modal
+      this.dialog = false;
+      this.$emit("input", this.dialog);
     }
   }
+};
 </script>
