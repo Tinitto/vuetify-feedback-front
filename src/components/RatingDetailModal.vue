@@ -31,25 +31,25 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      value: {
-        default: false
-      },
-      rating: {
-        type: Object,
-        required: true,
-      }
+export default {
+  props: {
+    value: {
+      default: false
     },
-    data: () => ({
-      dialog: false,
-    }),
-    methods: {
-      closeDialog(){
-        // update the v-modal
-        this.dialog = false;
-        this.$emit('input', this.dialog);
-      }
+    rating: {
+      type: Object,
+      required: true
+    }
+  },
+  data: () => ({
+    dialog: false
+  }),
+  methods: {
+    closeDialog() {
+      // update the v-modal
+      this.dialog = false;
+      this.$emit("input", this.dialog);
     }
   }
+};
 </script>
