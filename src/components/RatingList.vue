@@ -9,12 +9,12 @@
 
             <v-list-tile :key="rating._id" avatar @click="expandToModal(rating)">
               <v-list-tile-avatar>
-                <img :src="avatarUrl(rating.user)">
+                <img :src="avatarUrl(rating.user.name)">
               </v-list-tile-avatar>
 
               <v-list-tile-content>
                 <v-list-tile-title>
-                  <span>{{ rating.user }} </span>
+                  <span>{{ rating.user.name }} </span>
                   <small class="grey--text">{{ rating.createdAt | moment("DD-MM-YYYY")}}</small>
                 </v-list-tile-title>
                 <v-rating
@@ -43,11 +43,11 @@
 </template>
 
 <script>
-import RatingDetailModal from './RatingDetailModal.vue';
+import RatingDetailModal from "./RatingDetailModal.vue";
 
 export default {
   components: {
-    RatingDetailModal,
+    RatingDetailModal
   },
   props: {
     ratings: {
@@ -57,15 +57,18 @@ export default {
   },
   data: () => ({
     showDialog: false,
-    selectedRating: {},
+    selectedRating: {}
   }),
   methods: {
     avatarUrl(name) {
       // Returns avatars derived from User's initials e.g. for John Doe, you get JD
-      let userName = name
-        .trim()
-        .split(" ")
-        .join("+");
+      let userName =
+        typeof name === "string"
+          ? name
+              .trim()
+              .split(" ")
+              .join("+")
+          : "Anonymous";
       return `https://ui-avatars.com/api/?name=${userName}`;
     },
     expandToModal(rating) {
@@ -79,4 +82,3 @@ export default {
   }
 };
 </script>
-

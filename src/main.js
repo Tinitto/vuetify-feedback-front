@@ -1,6 +1,6 @@
 import Vue from "vue";
-import './plugins/vuetify';
-import './plugins/vue-moment';
+import "./plugins/vuetify";
+import "./plugins/vue-moment";
 import App from "./App.vue";
 import router from "./router";
 import storeGenerator from "./store-generator";

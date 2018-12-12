@@ -3,7 +3,7 @@ import Vuex from "vuex";
 import VuexPersist from "vuex-persist";
 import feathersVuex from "feathers-vuex";
 import { makeFeathersClient } from "./feathers-client";
-import { DEFAULT_BACKEND_URL, VUEX_LOCAL_STORAGE_KEY } from './assets/config';
+import { DEFAULT_BACKEND_URL, VUEX_LOCAL_STORAGE_KEY } from "./assets/config";
 
 Vue.use(Vuex);
 
@@ -13,8 +13,7 @@ const storeGenerator = function(socketServerUrl) {
   * this.$store = storeGenerator(someBackendUrl); // as called in a component
   */
 
-  socketServerUrl =
-    socketServerUrl || DEFAULT_BACKEND_URL;
+  socketServerUrl = socketServerUrl || DEFAULT_BACKEND_URL;
 
   // Persisting the state to the localStorage
   const VuexLocal = new VuexPersist({
