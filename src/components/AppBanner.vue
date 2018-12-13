@@ -23,7 +23,7 @@
     </v-layout>
     <v-divider light></v-divider>
     <v-card-actions class="pa-3">
-        <v-btn color="primary" light :href="actionUrl">Rate this app</v-btn>
+        <v-btn color="primary" light :to="actionUrl">Rate this app</v-btn>
       <v-spacer></v-spacer>
       <v-chip color="primary">
         <v-avatar class="white primary--text">{{ roundedOffRating }}</v-avatar>

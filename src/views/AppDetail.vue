@@ -63,6 +63,7 @@ export default {
       const params = {
         id: this.applicationId
       };
+      // console.log(this.$router.resolve({ name: "app-rating-form", params, query }));
       return this.$router.resolve({ name: "app-rating-form", params, query })
         .href;
     },
