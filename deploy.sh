@@ -20,6 +20,7 @@ git commit -m 'deploy'
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
+# may not work if the ssh keys are not properly set up
 git push -f git@github.com:Tinitto/vuetify-feedback-front.git master:gh-pages
 
 cd -

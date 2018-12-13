@@ -8,8 +8,8 @@
             <v-divider inset :key="dividerIndex(rating._id)"></v-divider>
 
             <v-list-tile :key="rating._id" avatar @click="expandToModal(rating)">
-              <v-list-tile-avatar>
-                <img :src="avatarUrl(rating.user.name)">
+              <v-list-tile-avatar color="primary">
+                <img color="primary" :src="avatarUrl(rating.user.name)">
               </v-list-tile-avatar>
 
               <v-list-tile-content>
@@ -69,7 +69,7 @@ export default {
               .split(" ")
               .join("+")
           : "Anonymous";
-      return `https://ui-avatars.com/api/?name=${userName}`;
+      return `https://ui-avatars.com/api/?name=${userName}&background=1976d2&color=fff`;
     },
     expandToModal(rating) {
       // Open a modal with the application's details
