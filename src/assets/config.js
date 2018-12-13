@@ -1,4 +1,4 @@
-export const FEEDBACK_FORM_URL = "https://tinitto.github.io/vuetify-feedback";
+export const FEEDBACK_FORM_URL = "/";
 // set this to the url to your own form
 
 export const DEFAULT_BACKEND_URL = "https://vuetify-feedback-api.herokuapp.com";

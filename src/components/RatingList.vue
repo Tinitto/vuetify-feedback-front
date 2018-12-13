@@ -15,7 +15,7 @@
               <v-list-tile-content>
                 <v-list-tile-title>
                   <span>{{ rating.user.name }} </span>
-                  <small class="grey--text">{{ rating.createdAt | moment("DD-MM-YYYY")}}</small>
+                  <small class="grey--text">{{ rating.createdAt | moment("lll")}}</small>
                 </v-list-tile-title>
                 <v-rating
                   v-model="rating.rating"

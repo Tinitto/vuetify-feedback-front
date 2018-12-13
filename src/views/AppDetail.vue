@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div color="grey lighten-4" >
     <app-banner 
       :rating="application.rating"
       :application-description="application.description"
       :application-name="application.name"
-      :action-url="feedbackFormLink"
+      :action-url="betterFeedbackFormLink"
       style="z-index: 1;"
     />
     <rating-list 
@@ -19,7 +19,6 @@ import AppBanner from "../components/AppBanner.vue";
 import RatingList from "../components/RatingList.vue";
 import authErrorHandler from "../assets/authErrorHandler.js";
 
-import { FEEDBACK_FORM_URL, DEFAULT_BACKEND_URL } from "../assets/config.js";
 import { mapGetters, mapActions, mapMutations } from "vuex";
 
 export default {
@@ -53,15 +52,19 @@ export default {
     });
   },
   computed: {
-    feedbackFormLink() {
-      let backendUrl = this.$route.query.backendUrl || DEFAULT_BACKEND_URL;
-      let feedbackFormUrl =
-        this.$route.query.feedbackFormUrl || FEEDBACK_FORM_URL;
-      let encodedBackendUrl = encodeURIComponent(backendUrl);
-      let redirectUrl = encodeURIComponent(window.location.href);
-      return `${feedbackFormUrl}/?backendUrl=${encodedBackendUrl}&applicationId=${
-        this.$route.params.id
-      }&redirectUrl=${redirectUrl}`;
+    betterFeedbackFormLink() {
+      const redirectUrl =
+        this.$store.state.redirectUrl || this.$router.currentRoute.fullPath;
+      console.log(redirectUrl);
+      const query = {
+        backendUrl: this.$store.state.backendUrl,
+        formRedirectUrl: redirectUrl
+      };
+      const params = {
+        id: this.applicationId
+      };
+      return this.$router.resolve({ name: "app-rating-form", params, query })
+        .href;
     },
     ...mapGetters("ratings", {
       findRatingsInStore: "find"

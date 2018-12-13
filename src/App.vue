@@ -2,6 +2,8 @@
   <v-app>
     <tool-bar
     :user="$store.state.auth.user"
+    :logoutFunction="logout"
+    :loginFunction="login"
     />
     <v-content>
       <router-view />
@@ -12,7 +14,7 @@
 <script>
 import ToolBar from "./components/ToolBar";
 import { DEFAULT_BACKEND_URL } from "./assets/config";
-import { mapMutations } from "vuex";
+import { mapMutations, mapActions } from "vuex";
 
 export default {
   name: "App",
@@ -23,6 +25,7 @@ export default {
     return {
       error: undefined,
       backendUrl: "",
+      redirectUrl: "",
       token: ""
     };
   },
@@ -30,6 +33,11 @@ export default {
     const urlParams = new URLSearchParams(window.location.search);
     this.token = urlParams.get("token");
     this.backendUrl = urlParams.get("backendUrl");
+    this.redirectUrl = urlParams.get("redirectUrl");
+
+    if (this.redirectUrl) {
+      await this.$store.dispatch("UPDATE_REDIRECT_URL", this.redirectUrl);
+    }
 
     if (this.backendUrl) {
       // update the store to be based on a different socketServerUrl
@@ -38,7 +46,10 @@ export default {
       const backendUrl = this.$store.state.backendUrl || DEFAULT_BACKEND_URL;
       await this.$store.dispatch("UPDATE_BACKEND_URL", backendUrl);
     }
-    await this.attemptExternalLogin();
+    if (!this.token) {
+      this.login();
+    }
+    // await this.attemptExternalLogin();
     await this.attemptInternalLogin();
     const localAttemptExternalLogin = this.attemptExternalLogin;
     this.$store.subscribe(mutation => {
@@ -53,13 +64,21 @@ export default {
     }
   },
   methods: {
+    login() {
+      this.authenticate().catch(() => {
+        this.logout();
+        window.location.assign(this.googleAuthLink);
+      });
+    },
     dismissError() {
       this.error = undefined;
       this.clearAuthenticateError();
     },
     async attemptExternalLogin() {
       if (
-        (!this.$store.state.auth.accessToken || !this.$store.state.auth.user) &&
+        (!this.$store.state.auth.accessToken ||
+          !this.$store.state.auth.user ||
+          this.$store.state.auth.accessToken) &&
         !this.token
       ) {
         let googleAuthLink = this.googleAuthLink;
@@ -101,7 +120,8 @@ export default {
     },
     ...mapMutations("auth", {
       clearAuthenticateError: "clearAuthenticateError"
-    })
+    }),
+    ...mapActions("auth", ["authenticate", "logout"])
   }
 };
 </script>

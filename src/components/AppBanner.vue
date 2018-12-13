@@ -26,7 +26,7 @@
         <v-btn color="primary" light :href="actionUrl">Rate this app</v-btn>
       <v-spacer></v-spacer>
       <v-chip color="primary">
-        <v-avatar class="white primary--text">{{ rating }}</v-avatar>
+        <v-avatar class="white primary--text">{{ roundedOffRating }}</v-avatar>
           <v-rating
             v-model="rating"
             background-color="white"
@@ -60,6 +60,16 @@ export default {
     applicationDescription: {
       type: String,
       default: "A created app"
+    }
+  },
+  computed: {
+    roundedOffRating() {
+      return this.roundOff(this.rating);
+    }
+  },
+  methods: {
+    roundOff(value) {
+      return Math.round(value * 10) / 10;
     }
   }
 };

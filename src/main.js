@@ -4,6 +4,7 @@ import "./plugins/vue-moment";
 import App from "./App.vue";
 import router from "./router";
 import storeGenerator from "./store-generator";
+import { DEFAULT_BACKEND_URL } from "./assets/config";
 
 Vue.config.productionTip = false;
 
@@ -18,7 +19,9 @@ function getParameterByName(name, url) {
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-const socketBackendUrl = getParameterByName("backendUrl");
+const socketBackendUrl =
+  getParameterByName("backendUrl") || DEFAULT_BACKEND_URL;
+// console.log(socketBackendUrl);
 let store = storeGenerator(socketBackendUrl);
 const originalBackendUrl = store.state.backendUrl;
 if (!socketBackendUrl && originalBackendUrl) {

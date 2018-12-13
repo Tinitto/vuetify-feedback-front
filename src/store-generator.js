@@ -29,12 +29,16 @@ const storeGenerator = function(socketServerUrl) {
   return new Vuex.Store({
     state: {
       backendUrl: socketServerUrl,
+      redirectUrl: "",
       applicationId: "",
       applicationName: ""
     },
     mutations: {
       updateBackendUrl(state, payload) {
         state.backendUrl = payload;
+      },
+      updateRedirectUrl(state, payload) {
+        state.RedirectUrl = payload;
       },
       refreshStateOnBackendChange(state) {
         //mutation to initialise the store especially on startup
@@ -46,6 +50,9 @@ const storeGenerator = function(socketServerUrl) {
     actions: {
       UPDATE_BACKEND_URL(store, payload) {
         store.commit("updateBackendUrl", payload);
+      },
+      UPDATE_REDIRECT_URL(store, payload) {
+        store.commit("updateRedirectUrl", payload);
       },
       REFRESH_STATE_ON_BACKEND_CHANGE(store) {
         store.commit("refreshStateOnBackendChange");

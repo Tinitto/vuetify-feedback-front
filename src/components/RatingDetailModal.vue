@@ -3,7 +3,7 @@
     <v-dialog v-model="value" max-width="400px">
       <v-card>
         <v-card-title>
-          <span class="headline">{{ rating.user }}</span>
+          <span class="headline">{{ rating.user.name }}</span>
           <v-spacer />
           <span class="grey--text">{{ rating.createdAt | moment("DD-MM-YYYY") }} </span>
         </v-card-title>

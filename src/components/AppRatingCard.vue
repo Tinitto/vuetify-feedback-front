@@ -36,7 +36,7 @@
     <v-divider light></v-divider>
     <v-card-actions class="pa-3">
         <!--<v-btn color="primary" light :href="actionUrl">Rate this app</v-btn> -->
-      <span class="caption mr-2">({{ rating }})</span>
+      <span class="caption mr-2">({{ roundedOffRating }})</span>
       <v-rating
         v-model="rating"
         background-color="white"
@@ -73,6 +73,16 @@ export default {
     applicationDescription: {
       type: String,
       default: "A created app"
+    }
+  },
+  computed: {
+    roundedOffRating() {
+      return this.roundOff(this.rating);
+    }
+  },
+  methods: {
+    roundOff(value) {
+      return Math.round(value * 10) / 10;
     }
   }
 };
