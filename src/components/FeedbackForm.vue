@@ -204,7 +204,8 @@ export default {
           if ([200, 201, 202].includes(response.status)) {
             this.success.message = "Rating successful";
             this.success.status = true;
-            window.location.replace(redirectUrl);
+            // window.location.replace(redirectUrl);
+            this.$router.push(redirectUrl);
           }
         })
         .catch(error => {
