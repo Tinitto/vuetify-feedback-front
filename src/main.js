@@ -21,7 +21,6 @@ function getParameterByName(name, url) {
 
 const socketBackendUrl =
   getParameterByName("backendUrl") || DEFAULT_BACKEND_URL;
-// console.log(socketBackendUrl);
 let store = storeGenerator(socketBackendUrl);
 const originalBackendUrl = store.state.backendUrl;
 if (!socketBackendUrl && originalBackendUrl) {

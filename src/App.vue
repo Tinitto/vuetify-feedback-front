@@ -33,6 +33,7 @@ export default {
     const urlParams = new URLSearchParams(window.location.search);
     this.token = urlParams.get("token");
     this.backendUrl = urlParams.get("backendUrl");
+    console.log(this.backendUrl);
     this.redirectUrl = urlParams.get("redirectUrl");
 
     if (this.redirectUrl) {
@@ -103,6 +104,7 @@ export default {
           const currentRouteName = this.$route.name;
           // eslint-disable-next-line no-unused-vars
           let { token, ...restQuery } = this.$route.query;
+          restQuery.backendUrl = this.backendUrl;
           this.$router.replace({ name: currentRouteName, query: restQuery });
         })
         // Just use the returned error instead of mapping it from the store.

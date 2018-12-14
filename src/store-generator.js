@@ -17,7 +17,7 @@ const storeGenerator = function(socketServerUrl) {
 
   // Persisting the state to the localStorage
   const VuexLocal = new VuexPersist({
-    key: VUEX_LOCAL_STORAGE_KEY,
+    key: `${VUEX_LOCAL_STORAGE_KEY}${socketServerUrl}`,
     storage: window.localStorage
   });
 
