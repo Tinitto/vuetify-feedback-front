@@ -76,7 +76,7 @@ export default {
     });
   },
   computed: {
-    currentUser(){
+    currentUser() {
       return this.$store.state.auth.user;
     },
     googleAuthLink() {

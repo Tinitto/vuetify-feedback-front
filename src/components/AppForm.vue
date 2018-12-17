@@ -62,12 +62,12 @@ export default {
         name: this.name,
         description: this.description
       };
-    },
+    }
   },
   methods: {
-    close(){
-      this.name = '';
-      this.description = '';
+    close() {
+      this.name = "";
+      this.description = "";
       this.dialog = false;
     },
     submit() {

@@ -62,13 +62,13 @@ export default {
     AppForm
   },
   computed: {
-    isAppOwner(){
+    isAppOwner() {
       const currentUser = this.$store.state.auth.user;
-      return currentUser? currentUser.isOwner: false;
+      return currentUser ? currentUser.isOwner : false;
     },
-    isAdmin(){
+    isAdmin() {
       const currentUser = this.$store.state.auth.user;
-      return currentUser? currentUser.isAdmin: false;
+      return currentUser ? currentUser.isAdmin : false;
     },
     routeQuery() {
       let query = {};
@@ -98,18 +98,18 @@ export default {
     ...mapActions("applications", {
       updateApplicationList: "find"
     }),
-    alertError(text){
+    alertError(text) {
       this.message.text = text;
-      this.message.type = 'error';
+      this.message.type = "error";
       this.message.status = true;
     },
-    alertSuccess(text){
+    alertSuccess(text) {
       this.message.text = text;
-      this.message.type = 'success';
+      this.message.type = "success";
       this.message.status = true;
     },
-    createNewApplication(data){
-      this.createApplication(data).catch(err => {        
+    createNewApplication(data) {
+      this.createApplication(data).catch(err => {
         this.alertError(err.message);
       });
     },

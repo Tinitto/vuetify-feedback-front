@@ -34,14 +34,14 @@
 </template>
 
 <script>
-  export default {
-    props: {
-        links: {
-          type: Array,
-          /*
+export default {
+  props: {
+    links: {
+      type: Array
+      /*
           [{label: '', href: ''},...]
           */
-        }
     }
   }
+};
 </script>

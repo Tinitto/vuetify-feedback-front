@@ -15,9 +15,8 @@ export default {
   props: {
     login: {
       type: Function,
-      required: true,
+      required: true
     }
   }
-}
+};
 </script>
-
