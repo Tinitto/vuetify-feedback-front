@@ -1,13 +1,6 @@
 <template>
-  <v-footer
-    height="auto"
-    color="primary lighten-1"
-  >
-    <v-layout
-      justify-center
-      row
-      wrap
-    >
+  <v-footer height="auto" color="primary lighten-1">
+    <v-layout justify-center row wrap>
       <v-btn
         v-for="link in links"
         :key="link.label"
@@ -16,18 +9,11 @@
         target="_blank"
         flat
         round
-      >
-        {{ link.label }}
-      </v-btn>
-      <v-flex
-        primary
-        lighten-2
-        py-3
-        text-xs-center
-        white--text
-        xs12
-      >
-        &copy;2018 — <strong><slot /></strong>
+      >{{ link.label }}</v-btn>
+      <v-flex primary lighten-2 py-3 text-xs-center white--text xs12>&copy;2018 —
+        <strong>
+          <slot/>
+        </strong>
       </v-flex>
     </v-layout>
   </v-footer>

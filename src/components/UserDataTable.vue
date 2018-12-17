@@ -1,22 +1,22 @@
 <template>
   <div>
-    <slot />
+    <slot/>
     <v-toolbar flat color="white" class="py-3 elevation-1">
       <v-layout row wrap justify-space-between align-baseline>
         <v-flex xs12 sm4>
-      <v-toolbar-title>{{ tableTitle }}</v-toolbar-title>
+          <v-toolbar-title>{{ tableTitle }}</v-toolbar-title>
         </v-flex>
-      <!--<v-spacer></v-spacer>-->
-      <v-flex xs12 sm8>      
-      <v-text-field
-        v-model="search"
-        append-icon="search"
-        label="Search"
-        single-line
-        hide-details
-      ></v-text-field> 
-      </v-flex>
-      </v-layout>  
+        <!--<v-spacer></v-spacer>-->
+        <v-flex xs12 sm8>
+          <v-text-field
+            v-model="search"
+            append-icon="search"
+            label="Search"
+            single-line
+            hide-details
+          ></v-text-field>
+        </v-flex>
+      </v-layout>
     </v-toolbar>
     <v-data-table
       :headers="headerList"
@@ -35,14 +35,10 @@
           ></v-switch>
           <span v-else>{{ props.item[header.value] }}</span>
         </td>
-        <td class="justify-center layout px-0">
-           
-        </td>
+        <td class="justify-center layout px-0"></td>
       </template>
       <template slot="no-data">
-        <v-alert :value="true" color="error" icon="warning">
-        Sorry, nothing to display here :(
-      </v-alert>
+        <v-alert :value="true" color="error" icon="warning">Sorry, nothing to display here :(</v-alert>
       </template>
     </v-data-table>
   </div>

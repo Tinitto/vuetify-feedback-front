@@ -1,7 +1,7 @@
 <template>
   <v-card color="white" class="black--text" z-index="2">
     <v-layout row>
-      <v-flex  xs12>
+      <v-flex xs12>
         <v-img
           class="white--text"
           height="25vh"
@@ -12,8 +12,8 @@
             <v-layout fill-height>
               <v-flex xs12 align-end flexbox>
                 <div>
-                 <div class="display-2 font-weight-light">{{ applicationName }}</div>
-                 <div class="headline font-weight-thin">{{ applicationDescription }}</div>
+                  <div class="display-2 font-weight-light">{{ applicationName }}</div>
+                  <div class="headline font-weight-thin">{{ applicationDescription }}</div>
                 </div>
               </v-flex>
             </v-layout>
@@ -25,26 +25,26 @@
     <v-card-actions class="pa-3">
       <v-layout row wrap justify-space-between>
         <v-flex xs12 sm9 md10>
-        <v-btn color="primary" light @click="action">Rate this app</v-btn>
-        <v-btn color="error" light @click="deleteFunction" v-if="deleteFunction">Delete App</v-btn>
+          <v-btn color="primary" light @click="action">Rate this app</v-btn>
+          <v-btn color="error" light @click="deleteFunction" v-if="deleteFunction">Delete App</v-btn>
         </v-flex>
-      <!--<v-spacer></v-spacer>-->
-      <v-flex xs12 sm3 md2>
-      <v-chip color="primary">
-        <v-avatar class="white primary--text">{{ roundedOffRating }}</v-avatar>
-          <v-rating
-            v-model="rating"
-            background-color="white"
-            color="yellow accent-4"
-            dense
-            half-increments
-            hover
-            size="18"
-            readonly
-          ></v-rating>
-      </v-chip> 
-      </v-flex>
-      </v-layout>     
+        <!--<v-spacer></v-spacer>-->
+        <v-flex xs12 sm3 md2>
+          <v-chip color="primary">
+            <v-avatar class="white primary--text">{{ roundedOffRating }}</v-avatar>
+            <v-rating
+              v-model="rating"
+              background-color="white"
+              color="yellow accent-4"
+              dense
+              half-increments
+              hover
+              size="18"
+              readonly
+            ></v-rating>
+          </v-chip>
+        </v-flex>
+      </v-layout>
     </v-card-actions>
   </v-card>
 </template>
@@ -58,7 +58,7 @@ export default {
     },
     action: {
       type: Function,
-      required: true,
+      required: true
     },
     applicationName: {
       type: String,

@@ -9,9 +9,7 @@
           v-model="$store.state.message.status"
           dismissible
           :type="$store.state.message.type"
-        >
-        {{ $store.state.message.text }}
-        </v-alert>
+        >{{ $store.state.message.text }}</v-alert>
       </container-wrapper>
 
       <logged-out-view v-if="!currentUser" :login="login"></logged-out-view>
@@ -21,7 +19,6 @@
     <loading v-model="$store.state.loading"></loading>
 
     <app-footer :links="footerLinks">Company</app-footer>
-
   </v-app>
 </template>
 
@@ -30,7 +27,7 @@ import ToolBar from "./components/ToolBar";
 import ContainerWrapper from "./components/ContainerWrapper";
 import AppFooter from "./components/AppFooter";
 import LoggedOutView from "./components/LoggedOutView";
-import Loading from './components/Loading';
+import Loading from "./components/Loading";
 
 import { DEFAULT_BACKEND_URL } from "./assets/config";
 import { mapMutations, mapActions } from "vuex";
@@ -140,7 +137,9 @@ export default {
           // eslint-disable-next-line no-unused-vars
           let { token, ...restQuery } = this.$route.query;
           restQuery.backendUrl = this.backendUrl;
-          this.alertSuccess(`Logged in successfully as ${this.currentUser.name}`)
+          this.alertSuccess(
+            `Logged in successfully as ${this.currentUser.name}`
+          );
           this.$router.replace({ name: currentRouteName, query: restQuery });
         })
         // Just use the returned error instead of mapping it from the store.

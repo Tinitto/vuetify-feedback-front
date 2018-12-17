@@ -7,7 +7,7 @@
         md4
         lg3
         v-for="application in $store.state.applications.keyedById"
-        :key="application._id"        
+        :key="application._id"
       >
         <app-rating-card
           :detail-url="applicationDetailUrl(application._id)"
@@ -16,8 +16,7 @@
           :application-name="application.name"
         />
       </v-flex>
-      <app-form v-if="isAppOwner || isAdmin" :submit-function="createNewApplication">
-      </app-form>
+      <app-form v-if="isAppOwner || isAdmin" :submit-function="createNewApplication"></app-form>
     </v-layout>
   </v-container>
 </template>

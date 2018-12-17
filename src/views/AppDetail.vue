@@ -1,17 +1,15 @@
 <template>
-  <div color="grey lighten-4" >
-
+  <div color="grey lighten-4">
     <feedback-form
-    v-model="showFeedback"
-    :send-feedback="createRatingAndCloseDialog"
-    :cancel-function="closeFeedbackForm"
-    :title="feedbackTitle"
-    :intro="feedbackIntro"
-    :application-id="applicationId"  
-    v-if="showFeedback"  
-    >
-    </feedback-form>
-    <app-banner 
+      v-model="showFeedback"
+      :send-feedback="createRatingAndCloseDialog"
+      :cancel-function="closeFeedbackForm"
+      :title="feedbackTitle"
+      :intro="feedbackIntro"
+      :application-id="applicationId"
+      v-if="showFeedback"
+    ></feedback-form>
+    <app-banner
       :rating="application.rating"
       :application-description="application.description"
       :application-name="application.name"
@@ -20,19 +18,14 @@
       style="z-index: 1;"
       v-if="!showFeedback"
     />
-    <rating-list 
-     :ratings="ratings"
-     v-if="!showFeedback"
-    />
-
-
+    <rating-list :ratings="ratings" v-if="!showFeedback"/>
   </div>
 </template>
 
 <script>
 import AppBanner from "../components/AppBanner.vue";
 import RatingList from "../components/RatingList.vue";
-import FeedbackForm from '../components/FeedbackForm.vue';
+import FeedbackForm from "../components/FeedbackForm.vue";
 import authErrorHandler from "../assets/authErrorHandler.js";
 
 import { mapGetters, mapActions, mapMutations } from "vuex";
@@ -40,7 +33,7 @@ import { mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   data: () => ({
     error: undefined,
-    showFeedback: false,
+    showFeedback: false
   }),
   components: {
     AppBanner,
@@ -160,26 +153,29 @@ export default {
       });
       return obj;
     },
-    closeFeedbackForm(){
+    closeFeedbackForm() {
       this.showFeedback = false;
     },
-    showFeedbackForm(){
+    showFeedbackForm() {
       this.showFeedback = true;
     },
-    createRatingAndCloseDialog(data){
+    createRatingAndCloseDialog(data) {
       this.createRating(data)
-      .then(response => {
-        this.alertSuccess(`You have rated ${this.application.name} successfully.`);        
-      }).catch(err => {
-        this.alertError(err.message);
-      }).finally(() => {
-        this.closeFeedbackForm();
-        // attempt to update the application's details
-        this.updateApplication(this.applicationId)
-        .catch(error => {
-          this.alertError(error.message);
+        .then(() => {
+          this.alertSuccess(
+            `You have rated ${this.application.name} successfully.`
+          );
+        })
+        .catch(err => {
+          this.alertError(err.message);
+        })
+        .finally(() => {
+          this.closeFeedbackForm();
+          // attempt to update the application's details
+          this.updateApplication(this.applicationId).catch(error => {
+            this.alertError(error.message);
+          });
         });
-      });      
     },
     ...mapMutations("auth", {
       clearAuthenticateError: "clearAuthenticateError"

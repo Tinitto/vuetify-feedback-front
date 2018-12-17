@@ -1,10 +1,9 @@
 <template>
   <v-card color="white" class="black--text" z-index="2" :to="detailUrl" style="min-height: 100%">
     <v-layout row>
-      <v-flex  xs12>
+      <v-flex xs12>
         <v-img
           class="white--text"
-          
           gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
           src="https://source.unsplash.com/featured/1000x500/?technology"
           contain
@@ -13,25 +12,14 @@
             <v-layout fill-height>
               <v-flex xs12 align-end flexbox>
                 <div>
-                 <div class="headline">{{ applicationName }}</div>
-                 <div class="">{{ applicationDescription }}</div>
+                  <div class="headline">{{ applicationName }}</div>
+                  <div class>{{ applicationDescription }}</div>
                 </div>
               </v-flex>
             </v-layout>
           </v-container>
         </v-img>
       </v-flex>
-      <!--<v-flex xs7 md7 lg7>
-        <v-card-title primary-title>
-          <div>
-            <div class="headline">{{ applicationName }}</div>
-            <div>{{ applicationDescription }}</div>
-          </div>
-        </v-card-title>
-      </v-flex>
-      <v-flex xs5 md5 lg5>
-        <v-img src="https://source.unsplash.com/featured/125x125/?technology" height="125px" contain></v-img>
-      </v-flex> -->
     </v-layout>
     <v-divider light></v-divider>
     <v-card-actions class="pa-3">

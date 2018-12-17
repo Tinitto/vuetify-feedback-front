@@ -10,11 +10,7 @@
         :is-read-only="isReadOnly"
         :filter="filter"
       >
-      <table-filter
-      v-model="filter.value"
-      :key-value-pairs="filterKeyValuePairs"
-      >
-      </table-filter>
+        <table-filter v-model="filter.value" :key-value-pairs="filterKeyValuePairs"></table-filter>
       </user-data-table>
     </v-container>
   </div>

@@ -12,11 +12,7 @@
           <v-container grid-list-md>
             <v-layout row wrap>
               <v-flex xs12>
-                <v-text-field
-                label="Name*"
-                required
-                v-model="name"
-                ></v-text-field>
+                <v-text-field label="Name*" required v-model="name"></v-text-field>
               </v-flex>
               <v-flex xs12>
                 <v-textarea
@@ -30,8 +26,7 @@
               </v-flex>
             </v-layout>
             <small>*indicates required field</small>
-            
-          </v-container>          
+          </v-container>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>

@@ -35,7 +35,7 @@ const storeGenerator = function(socketServerUrl) {
         text: undefined,
         status: false
       },
-      loading: false,
+      loading: false
     },
     mutations: {
       updateBackendUrl(state, payload) {
@@ -44,10 +44,10 @@ const storeGenerator = function(socketServerUrl) {
       updateRedirectUrl(state, payload) {
         state.RedirectUrl = payload;
       },
-      showLoading(state){
+      showLoading(state) {
         state.loading = true;
       },
-      hideLoading(state){
+      hideLoading(state) {
         state.loading = false;
       },
       alertError(state, text) {
@@ -94,11 +94,11 @@ const storeGenerator = function(socketServerUrl) {
   });
 
   // To tracking loading state
-  createdStore.subscribe((mutation) => {
-    if(/.+\/set.+Pending/.test(mutation.type)){
-      createdStore.commit('showLoading');
-    } else if(/.+unset.+Pending/.test(mutation.type)){
-      createdStore.commit('hideLoading');
+  createdStore.subscribe(mutation => {
+    if (/.+\/set.+Pending/.test(mutation.type)) {
+      createdStore.commit("showLoading");
+    } else if (/.+unset.+Pending/.test(mutation.type)) {
+      createdStore.commit("hideLoading");
     }
   });
 

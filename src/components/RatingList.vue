@@ -1,44 +1,41 @@
 <template>
-<div>
-  <v-layout row>
-    <v-flex xs12 sm6 offset-sm3>
-      <v-card>
-        <v-list three-line>
-          <template v-for="rating in ratings">
-            <v-divider inset :key="dividerIndex(rating._id)"></v-divider>
+  <div>
+    <v-layout row>
+      <v-flex xs12 sm6 offset-sm3>
+        <v-card>
+          <v-list three-line>
+            <template v-for="rating in ratings">
+              <v-divider inset :key="dividerIndex(rating._id)"></v-divider>
 
-            <v-list-tile :key="rating._id" avatar @click="expandToModal(rating)">
-              <v-list-tile-avatar color="primary">
-                <img color="primary" :src="avatarUrl(rating.user.name)">
-              </v-list-tile-avatar>
+              <v-list-tile :key="rating._id" avatar @click="expandToModal(rating)">
+                <v-list-tile-avatar color="primary">
+                  <img color="primary" :src="avatarUrl(rating.user.name)">
+                </v-list-tile-avatar>
 
-              <v-list-tile-content>
-                <v-list-tile-title>
-                  <span>{{ rating.user.name }} </span>
-                  <small class="grey--text">{{ rating.createdAt | moment("lll")}}</small>
-                </v-list-tile-title>
-                <v-rating
-                  v-model="rating.rating"
-                  background-color="white"
-                  color="yellow accent-4"
-                  dense
-                  half-increments
-                  hover
-                  size="18"
-                  readonly
-                ></v-rating>
-                <v-list-tile-sub-title>{{ rating.reason }}</v-list-tile-sub-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </template>
-        </v-list>
-      </v-card>
-    </v-flex>
-  </v-layout>
-  <rating-detail-modal
-  v-model="showDialog"
-  :rating="selectedRating"
-  />
+                <v-list-tile-content>
+                  <v-list-tile-title>
+                    <span>{{ rating.user.name }}</span>
+                    <small class="grey--text">{{ rating.createdAt | moment("lll")}}</small>
+                  </v-list-tile-title>
+                  <v-rating
+                    v-model="rating.rating"
+                    background-color="white"
+                    color="yellow accent-4"
+                    dense
+                    half-increments
+                    hover
+                    size="18"
+                    readonly
+                  ></v-rating>
+                  <v-list-tile-sub-title>{{ rating.reason }}</v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </template>
+          </v-list>
+        </v-card>
+      </v-flex>
+    </v-layout>
+    <rating-detail-modal v-model="showDialog" :rating="selectedRating"/>
   </div>
 </template>
 
