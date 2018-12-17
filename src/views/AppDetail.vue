@@ -23,8 +23,6 @@ import { mapGetters, mapActions, mapMutations } from "vuex";
 
 export default {
   data: () => ({
-    /*application: {},
-    ratings: {},*/
     error: undefined
   }),
   components: {

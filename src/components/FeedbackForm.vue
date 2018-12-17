@@ -16,9 +16,6 @@
   </v-alert>
   
     <v-container align-center justify-center fill-height>
-      <!--<v-layout v-if="!dialog" row justify-center>
-        <v-btn color="primary" dark @click="dialog = true">Rate {{ applicationDetails.name}} Again</v-btn>
-      </v-layout>-->
 
       <v-dialog v-model="dialog" :max-width="currentModalWidth" hide-overlay>
         <v-card

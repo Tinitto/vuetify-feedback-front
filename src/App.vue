@@ -1,32 +1,48 @@
 <template>
   <v-app>
-    <tool-bar
-    :user="$store.state.auth.user"
-    :logoutFunction="logout"
-    :loginFunction="login"
-    />
+    <tool-bar :user="currentUser" :logoutFunction="logout" :loginFunction="login"/>
+
     <v-content>
-      <router-view />
+      <logged-out-view v-if="!currentUser" :login="login"></logged-out-view>
+      <router-view v-else/>
     </v-content>
+
+    <app-footer :links="footerLinks">Company</app-footer>
   </v-app>
 </template>
 
 <script>
 import ToolBar from "./components/ToolBar";
+import AppFooter from "./components/AppFooter";
+import LoggedOutView from "./components/LoggedOutView";
 import { DEFAULT_BACKEND_URL } from "./assets/config";
 import { mapMutations, mapActions } from "vuex";
 
 export default {
   name: "App",
   components: {
-    ToolBar
+    ToolBar,
+    AppFooter,
+    LoggedOutView
   },
   data() {
     return {
       error: undefined,
       backendUrl: "",
       redirectUrl: "",
-      token: ""
+      token: "",
+      footerLinks: [
+        {
+          label: "home",
+          href: "#"
+        },
+        {
+          label: "docs"
+        },
+        {
+          label: "team"
+        }
+      ]
     };
   },
   async created() {
@@ -60,6 +76,9 @@ export default {
     });
   },
   computed: {
+    currentUser(){
+      return this.$store.state.auth.user;
+    },
     googleAuthLink() {
       return `${this.$store.state.backendUrl}/auth/google`;
     }
