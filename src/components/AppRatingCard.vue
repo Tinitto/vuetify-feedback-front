@@ -35,7 +35,6 @@
     </v-layout>
     <v-divider light></v-divider>
     <v-card-actions class="pa-3">
-        <!--<v-btn color="primary" light :href="actionUrl">Rate this app</v-btn> -->
       <span class="caption mr-2">({{ roundedOffRating }})</span>
       <v-rating
         v-model="rating"
@@ -59,10 +58,6 @@ export default {
       default: 0
     },
     detailUrl: {
-      type: String,
-      default: "#"
-    },
-    actionUrl: {
       type: String,
       default: "#"
     },

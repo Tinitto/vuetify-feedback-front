@@ -30,8 +30,11 @@ const storeGenerator = function(socketServerUrl) {
     state: {
       backendUrl: socketServerUrl,
       redirectUrl: "",
-      applicationId: "",
-      applicationName: ""
+      message: {
+        type: undefined, // enum ['success', 'info', 'warning', 'error']
+        text: undefined,
+        status: false
+      }
     },
     mutations: {
       updateBackendUrl(state, payload) {
@@ -39,6 +42,16 @@ const storeGenerator = function(socketServerUrl) {
       },
       updateRedirectUrl(state, payload) {
         state.RedirectUrl = payload;
+      },
+      alertError(state, text) {
+        state.message.text = text;
+        state.message.type = "error";
+        state.message.status = true;
+      },
+      alertSuccess(state, text) {
+        state.message.text = text;
+        state.message.type = "success";
+        state.message.status = true;
       },
       refreshStateOnBackendChange(state) {
         //mutation to initialise the store especially on startup

@@ -1,6 +1,6 @@
 <template>
   <v-layout row justify-center>
-    <v-dialog v-model="value" max-width="400px">
+    <v-dialog v-model="value" max-width="400px" v-if="ratingAvailable">
       <v-card>
         <v-card-title>
           <span class="headline">{{ rating.user.name }}</span>
@@ -44,6 +44,16 @@ export default {
   data: () => ({
     dialog: false
   }),
+  computed: {
+    ratingAvailable() {
+      return (
+        this.rating.user &&
+        this.rating.reason &&
+        this.rating.rating &&
+        this.rating.reason
+      );
+    }
+  },
   methods: {
     closeDialog() {
       // update the v-modal

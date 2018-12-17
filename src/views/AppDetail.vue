@@ -5,6 +5,7 @@
       :application-description="application.description"
       :application-name="application.name"
       :action-url="betterFeedbackFormLink"
+      :delete-function="deleteFunction"
       style="z-index: 1;"
     />
     <rating-list 
@@ -50,6 +51,16 @@ export default {
     });
   },
   computed: {
+    isAppOwnerOrAdmin() {
+      const currentUser = this.$store.state.auth.user;
+      return currentUser ? currentUser.isOwner || currentUser.isAdmin : false;
+    },
+    deleteFunction() {
+      if (this.isAppOwnerOrAdmin) {
+        return this.deleteAppAndRedirect;
+      }
+      return undefined;
+    },
     betterFeedbackFormLink() {
       const redirectUrl =
         this.$store.state.redirectUrl || this.$router.currentRoute.fullPath;
@@ -92,12 +103,31 @@ export default {
     ...mapActions("applications", {
       updateApplication: "get"
     }),
+    ...mapActions("applications", {
+      deleteApplication: "remove"
+    }),
     ...mapActions("ratings", {
       updateRatings: "find"
     }),
+    ...mapMutations(["alertError", "alertSuccess"]),
     ...mapActions("auth", {
       authenticate: "authenticate"
     }),
+    deleteAppAndRedirect() {
+      if (!this.isAppOwnerOrAdmin) {
+        this.alertError("You don't have enough privileges to do this");
+        return;
+      }
+      this.deleteApplication(this.applicationId)
+        .then(response => {
+          const query = this.$router.currentRoute.query;
+          this.alertSuccess(`${response.name} deleted sucessfully`);
+          this.$router.push({ name: "app-list", query });
+        })
+        .catch(err => {
+          this.alertError(err.message);
+        });
+    },
     arrayToObject(array, keyField) {
       console.log(Array.isArray(array));
       let obj = {};

@@ -1,15 +1,5 @@
 <template>
   <v-container grid-list-sm mb-5>
-
-    <!-- message-->
-    <v-alert
-      v-model="message.status"
-      dismissible
-      :type="message.type"
-    >
-      {{ message.text }}
-    </v-alert>
-
     <v-layout row wrap>
       <v-flex
         xs12
@@ -24,7 +14,6 @@
           :rating="application.rating"
           :application-description="application.description"
           :application-name="application.name"
-          :action-url="feedbackFormLink(application._id)"
         />
       </v-flex>
       <app-form v-if="isAppOwner || isAdmin" :submit-function="createNewApplication">
@@ -36,7 +25,6 @@
 <script>
 import AppRatingCard from "../components/AppRatingCard.vue";
 import AppForm from "../components/AppForm.vue";
-import { FEEDBACK_FORM_URL, DEFAULT_BACKEND_URL } from "../assets/config.js";
 import authErrorHandler from "../assets/authErrorHandler.js";
 import { mapActions, mapMutations } from "vuex";
 
@@ -50,10 +38,11 @@ export default {
   }),
   created() {
     // initialize the application list
-    this.updateApplicationList().catch(err => {
+    const params = {};
+    this.updateApplicationList(params).catch(err => {
       authErrorHandler(err, this.authenticate, () => {
         this.clearAuthenticateError();
-        this.updateApplicationList();
+        this.updateApplicationList(params);
       });
     });
   },
@@ -75,17 +64,7 @@ export default {
       if (this.$route.query.backendUrl) {
         query.backendUrl = this.$route.query.backendUrl;
       }
-      if (this.$route.query.feedbackFormUrl) {
-        query.feedbackFormUrl = this.$route.query.feedbackFormUrl;
-      }
       return query;
-    },
-    feedbackFormLinkPrefix() {
-      let backendUrl = this.$route.query.backendUrl || DEFAULT_BACKEND_URL;
-      let feedbackFormUrl =
-        this.$route.query.feedbackFormUrl || FEEDBACK_FORM_URL;
-      let encodedBackendUrl = encodeURIComponent(backendUrl);
-      return `${feedbackFormUrl}/?backendUrl=${encodedBackendUrl}`;
     }
   },
   methods: {
@@ -98,26 +77,15 @@ export default {
     ...mapActions("applications", {
       updateApplicationList: "find"
     }),
-    alertError(text) {
-      this.message.text = text;
-      this.message.type = "error";
-      this.message.status = true;
-    },
-    alertSuccess(text) {
-      this.message.text = text;
-      this.message.type = "success";
-      this.message.status = true;
-    },
+    ...mapMutations(["alertError", "alertSuccess"]),
     createNewApplication(data) {
-      this.createApplication(data).catch(err => {
-        this.alertError(err.message);
-      });
-    },
-    feedbackFormLink(applicationId) {
-      let redirectUrl = encodeURIComponent(window.location.href);
-      return `${
-        this.feedbackFormLinkPrefix
-      }&applicationId=${applicationId}&redirectUrl=${redirectUrl}`;
+      this.createApplication(data)
+        .then(response => {
+          this.alertSuccess(`${response.name} created successfully`);
+        })
+        .catch(err => {
+          this.alertError(err.message);
+        });
     },
     applicationDetailUrl(applicationId) {
       let routeObject = this.$router.resolve({

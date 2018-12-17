@@ -15,6 +15,11 @@ export default new Router({
       component: () => import("./views/AppList.vue")
     },
     {
+      path: "/users",
+      name: "user-list",
+      component: () => import("./views/UserList.vue")
+    },
+    {
       path: "/:id",
       name: "app-detail",
       component: () => import("./views/AppDetail.vue")

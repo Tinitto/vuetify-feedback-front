@@ -3,6 +3,17 @@
     <tool-bar :user="currentUser" :logoutFunction="logout" :loginFunction="login"/>
 
     <v-content>
+      <!-- Alert -->
+      <container-wrapper v-if="$store.state.message.status">
+        <v-alert
+          v-model="$store.state.message.status"
+          dismissible
+          :type="$store.state.message.type"
+        >
+        {{ $store.state.message.text }}
+        </v-alert>
+      </container-wrapper>
+
       <logged-out-view v-if="!currentUser" :login="login"></logged-out-view>
       <router-view v-else/>
     </v-content>
@@ -13,6 +24,7 @@
 
 <script>
 import ToolBar from "./components/ToolBar";
+import ContainerWrapper from "./components/ContainerWrapper";
 import AppFooter from "./components/AppFooter";
 import LoggedOutView from "./components/LoggedOutView";
 import { DEFAULT_BACKEND_URL } from "./assets/config";
@@ -23,7 +35,8 @@ export default {
   components: {
     ToolBar,
     AppFooter,
-    LoggedOutView
+    LoggedOutView,
+    ContainerWrapper
   },
   data() {
     return {
