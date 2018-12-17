@@ -1,16 +1,30 @@
 <template>
   <div color="grey lighten-4" >
+
+    <feedback-form
+    v-model="showFeedback"
+    :send-feedback="createRatingAndCloseDialog"
+    :cancel-function="closeFeedbackForm"
+    :title="feedbackTitle"
+    :intro="feedbackIntro"
+    :application-id="applicationId"  
+    v-if="showFeedback"  
+    >
+    </feedback-form>
     <app-banner 
       :rating="application.rating"
       :application-description="application.description"
       :application-name="application.name"
-      :action-url="betterFeedbackFormLink"
+      :action="showFeedbackForm"
       :delete-function="deleteFunction"
       style="z-index: 1;"
+      v-if="!showFeedback"
     />
     <rating-list 
      :ratings="ratings"
+     v-if="!showFeedback"
     />
+
 
   </div>
 </template>
@@ -18,17 +32,20 @@
 <script>
 import AppBanner from "../components/AppBanner.vue";
 import RatingList from "../components/RatingList.vue";
+import FeedbackForm from '../components/FeedbackForm.vue';
 import authErrorHandler from "../assets/authErrorHandler.js";
 
 import { mapGetters, mapActions, mapMutations } from "vuex";
 
 export default {
   data: () => ({
-    error: undefined
+    error: undefined,
+    showFeedback: false,
   }),
   components: {
     AppBanner,
-    RatingList
+    RatingList,
+    FeedbackForm
   },
   created() {
     this.updateApplication(this.applicationId).catch(err => {
@@ -64,7 +81,6 @@ export default {
     betterFeedbackFormLink() {
       const redirectUrl =
         this.$store.state.redirectUrl || this.$router.currentRoute.fullPath;
-      console.log(redirectUrl);
       const query = {
         backendUrl: this.$store.state.backendUrl,
         formRedirectUrl: redirectUrl
@@ -88,6 +104,12 @@ export default {
     application() {
       return this.findApplicationById(this.applicationId);
     },
+    feedbackTitle() {
+      return `Rate ${this.application.name}`;
+    },
+    feedbackIntro() {
+      return `Please take a few seconds to rate ${this.application.name}`;
+    },
     ratingsArray() {
       const query = {
         application: this.applicationId,
@@ -109,6 +131,9 @@ export default {
     ...mapActions("ratings", {
       updateRatings: "find"
     }),
+    ...mapActions("ratings", {
+      createRating: "create"
+    }),
     ...mapMutations(["alertError", "alertSuccess"]),
     ...mapActions("auth", {
       authenticate: "authenticate"
@@ -129,12 +154,32 @@ export default {
         });
     },
     arrayToObject(array, keyField) {
-      console.log(Array.isArray(array));
       let obj = {};
       array.forEach(value => {
         obj[value[keyField]] = value;
       });
       return obj;
+    },
+    closeFeedbackForm(){
+      this.showFeedback = false;
+    },
+    showFeedbackForm(){
+      this.showFeedback = true;
+    },
+    createRatingAndCloseDialog(data){
+      this.createRating(data)
+      .then(response => {
+        this.alertSuccess(`You have rated ${this.application.name} successfully.`);        
+      }).catch(err => {
+        this.alertError(err.message);
+      }).finally(() => {
+        this.closeFeedbackForm();
+        // attempt to update the application's details
+        this.updateApplication(this.applicationId)
+        .catch(error => {
+          this.alertError(error.message);
+        });
+      });      
     },
     ...mapMutations("auth", {
       clearAuthenticateError: "clearAuthenticateError"

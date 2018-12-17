@@ -18,7 +18,10 @@
       <router-view v-else/>
     </v-content>
 
+    <loading v-model="$store.state.loading"></loading>
+
     <app-footer :links="footerLinks">Company</app-footer>
+
   </v-app>
 </template>
 
@@ -27,6 +30,8 @@ import ToolBar from "./components/ToolBar";
 import ContainerWrapper from "./components/ContainerWrapper";
 import AppFooter from "./components/AppFooter";
 import LoggedOutView from "./components/LoggedOutView";
+import Loading from './components/Loading';
+
 import { DEFAULT_BACKEND_URL } from "./assets/config";
 import { mapMutations, mapActions } from "vuex";
 
@@ -36,11 +41,11 @@ export default {
     ToolBar,
     AppFooter,
     LoggedOutView,
-    ContainerWrapper
+    ContainerWrapper,
+    Loading
   },
   data() {
     return {
-      error: undefined,
       backendUrl: "",
       redirectUrl: "",
       token: "",
@@ -62,7 +67,6 @@ export default {
     const urlParams = new URLSearchParams(window.location.search);
     this.token = urlParams.get("token");
     this.backendUrl = urlParams.get("backendUrl");
-    console.log(this.backendUrl);
     this.redirectUrl = urlParams.get("redirectUrl");
 
     if (this.redirectUrl) {
@@ -104,9 +108,9 @@ export default {
       });
     },
     dismissError() {
-      this.error = undefined;
       this.clearAuthenticateError();
     },
+    ...mapMutations(["alertError", "alertSuccess"]),
     async attemptExternalLogin() {
       if (
         (!this.$store.state.auth.accessToken ||
@@ -132,16 +136,15 @@ export default {
           accessToken: this.token
         })
         .then(() => {
-          console.log("successful login");
           const currentRouteName = this.$route.name;
           // eslint-disable-next-line no-unused-vars
           let { token, ...restQuery } = this.$route.query;
           restQuery.backendUrl = this.backendUrl;
+          this.alertSuccess(`Logged in successfully as ${this.currentUser.name}`)
           this.$router.replace({ name: currentRouteName, query: restQuery });
         })
         // Just use the returned error instead of mapping it from the store.
         .catch(error => {
-          console.log(error);
           // Convert the error to a plain object and add a message.
           let type = error.className;
           error = Object.assign({}, error);
@@ -149,7 +152,7 @@ export default {
             type === "not-authenticated"
               ? "Login failed. Not allowed."
               : "An error prevented login.";
-          this.error = error;
+          this.alertError(error.message);
         });
     },
     ...mapMutations("auth", {

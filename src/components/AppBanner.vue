@@ -23,9 +23,13 @@
     </v-layout>
     <v-divider light></v-divider>
     <v-card-actions class="pa-3">
-        <v-btn color="primary" light :to="actionUrl">Rate this app</v-btn>
+      <v-layout row wrap justify-space-between>
+        <v-flex xs12 sm9 md10>
+        <v-btn color="primary" light @click="action">Rate this app</v-btn>
         <v-btn color="error" light @click="deleteFunction" v-if="deleteFunction">Delete App</v-btn>
-      <v-spacer></v-spacer>
+        </v-flex>
+      <!--<v-spacer></v-spacer>-->
+      <v-flex xs12 sm3 md2>
       <v-chip color="primary">
         <v-avatar class="white primary--text">{{ roundedOffRating }}</v-avatar>
           <v-rating
@@ -38,7 +42,9 @@
             size="18"
             readonly
           ></v-rating>
-      </v-chip>      
+      </v-chip> 
+      </v-flex>
+      </v-layout>     
     </v-card-actions>
   </v-card>
 </template>
@@ -50,9 +56,9 @@ export default {
       type: Number,
       default: 0
     },
-    actionUrl: {
-      type: String,
-      default: "#"
+    action: {
+      type: Function,
+      required: true,
     },
     applicationName: {
       type: String,

@@ -26,7 +26,7 @@ const storeGenerator = function(socketServerUrl) {
   const feathersClient = makeFeathersClient(socketServerUrl);
   const { service, auth } = feathersVuex(feathersClient, { idField: "_id" });
 
-  return new Vuex.Store({
+  const createdStore = new Vuex.Store({
     state: {
       backendUrl: socketServerUrl,
       redirectUrl: "",
@@ -34,7 +34,8 @@ const storeGenerator = function(socketServerUrl) {
         type: undefined, // enum ['success', 'info', 'warning', 'error']
         text: undefined,
         status: false
-      }
+      },
+      loading: false,
     },
     mutations: {
       updateBackendUrl(state, payload) {
@@ -42,6 +43,12 @@ const storeGenerator = function(socketServerUrl) {
       },
       updateRedirectUrl(state, payload) {
         state.RedirectUrl = payload;
+      },
+      showLoading(state){
+        state.loading = true;
+      },
+      hideLoading(state){
+        state.loading = false;
       },
       alertError(state, text) {
         state.message.text = text;
@@ -85,6 +92,17 @@ const storeGenerator = function(socketServerUrl) {
       VuexLocal.plugin // Put this last to be able to persist all state
     ]
   });
+
+  // To tracking loading state
+  createdStore.subscribe((mutation) => {
+    if(/.+\/set.+Pending/.test(mutation.type)){
+      createdStore.commit('showLoading');
+    } else if(/.+unset.+Pending/.test(mutation.type)){
+      createdStore.commit('hideLoading');
+    }
+  });
+
+  return createdStore;
 };
 
 export default storeGenerator;

@@ -25,11 +25,6 @@ export default new Router({
       component: () => import("./views/AppDetail.vue")
     },
     {
-      path: "/rate/:id",
-      name: "app-rating-form",
-      component: () => import("./views/AppRatingForm.vue")
-    },
-    {
       path: "*", // for  any random url
       name: "app-all",
       // component: AppList, // Lazy-load the view

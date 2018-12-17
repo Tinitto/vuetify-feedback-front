@@ -37,7 +37,6 @@ export default {
     }
   }),
   created() {
-    // initialize the application list
     const params = {};
     this.updateApplicationList(params).catch(err => {
       authErrorHandler(err, this.authenticate, () => {
