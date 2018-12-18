@@ -8,7 +8,7 @@
         <v-icon class="hidden-md-and-up">home</v-icon>
         <span class="hidden-sm-and-down">Home</span>
       </v-btn>
-      <v-btn flat :to="usersUrl" v-if="isAppOwner">
+      <v-btn flat :to="usersUrl" v-if="isAppOwnerOrAdmin">
         <v-icon class="hidden-md-and-up">group</v-icon>
         <span class="hidden-sm-and-down">Users</span>
       </v-btn>
@@ -40,8 +40,8 @@ export default {
     logoutFunction: Function
   },
   computed: {
-    isAppOwner() {
-      return this.user ? this.user.isOwner : false;
+    isAppOwnerOrAdmin() {
+      return this.user ? (this.user.isOwner || this.user.isAdmin) : false;
     },
     routeQuery() {
       let query = {};

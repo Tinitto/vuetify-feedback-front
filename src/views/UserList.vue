@@ -1,6 +1,6 @@
 <template>
   <div>
-    <not-allowed v-if="!isAppOwner"></not-allowed>
+    <not-allowed v-if="!isAppOwnerOrAdmin"></not-allowed>
     <v-container v-else>
       <user-data-table
         :toggle-property="toggleUserProperty"
@@ -77,8 +77,11 @@ export default {
     currentUser() {
       return this.$store.state.auth.user;
     },
-    isAppOwner() {
-      return this.currentUser ? this.currentUser.isOwner : false;
+    isAppOwner(){
+      return this.currentUser ? this.currentUser.isOwner : false;      
+    },
+    isAppOwnerOrAdmin() {
+      return this.currentUser ? (this.currentUser.isOwner || this.currentUser.isAdmin) : false;
     },
     ...mapGetters("users", {
       userList: "list"
