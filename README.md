@@ -152,6 +152,7 @@ The demos are hosted free of charge by:
 3. [Github](https://github.com) (the helper app for auto-generating HTML code linking their websites to the user-rating app given they have their own server. It is found at [https://tinitto.github.io/feedback-button/](https://tinitto.github.io/feedback-button/?backendurl=https://vuetify-feedback-api.herokuapp.com))
 
 The code is hosted free of on Github in the following repos
+
 1. The back end: [Feedback Api](https://github.com/Tinitto/feedback-api)
 2. The front end: [this very repo](https://github.com/vuetify-feedback-front)
 3. The Feedback link HTML code generator: [Feedback Button](https://github.com/Tinitto/feedback-button)
