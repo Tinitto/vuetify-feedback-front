@@ -29,6 +29,10 @@ The people at [Expo](https://expo.io/) have written some good documentation abou
 2. [Building Standalone apps](https://docs.expo.io/versions/v31.0.0/guides/building-standalone-apps.html)
 3. [Publishing](https://docs.expo.io/versions/v31.0.0/workflow/publishing)
 
+## Demo
+
+Get the app on [Expo](https://exp.host/@tinitto/feedback-feedback-example)
+
 ## Acknowledgements
 
 The Privacy Policy and the Terms and Conditions were generated using [the Firebase generator](https://app-privacy-policy-generator.firebaseapp.com/) created by [Nishant](http://www.nisrulz.com/)
