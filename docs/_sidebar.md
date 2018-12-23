@@ -12,7 +12,7 @@
 - Demos
   - [Feedback API Server](https://vuetify-feedback-api.herokuapp.com/docs)
   - [Vuetify Feedback Front Web client](https://feedback.sopherapps.com?backendUrl=https://vuetify-feedback-api.herokuapp.com)
-  - [Vuetify Feedback Mobile Expo app]()
+  - [Vuetify Feedback Mobile Expo app](https://exp.host/@tinitto/feedback-feedback-example)
   - [Feedback Embeddeable HTML Code Generator](https://tinitto.github.io/feedback-button)
 
 - Repos
