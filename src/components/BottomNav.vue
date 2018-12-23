@@ -2,7 +2,7 @@
   <v-bottom-nav
   fixed
   color="primary"
-  style="top: 84vh;"
+  style="bottom: 56px;"
   >
     <v-btn dark :to="rootUrl">
       <span>Home</span>
