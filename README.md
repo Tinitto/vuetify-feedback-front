@@ -4,6 +4,10 @@ The front end user-rating app with a pluggable back end specified by a query par
 
 This application stores the user ratings in a server whose URL the user specifies through the ```backendUrl``` query parameter. The server can be a clone or a customized version of the feathersjs app found in [the Feedback API repo](https://github.com/Tinitto/feedback-api).
 
+## Documentation
+
+Please find all the documentation at [Vuetify Feedback Front Docs website](https://tinitto.github.io/vuetify-feedback-front)
+
 ## Dependencies
 
 This lovely pluggable little app is built on top of [Vuejs](https://vuejs.org/) and [Feathersjs](https://feathersjs.com/). Some of the main packages include the following:
