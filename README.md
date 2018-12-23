@@ -61,7 +61,9 @@ Here are the steps for setting up on a development machine. The steps are based 
     npm run serve
     ```
 
-6. Go to the url [http://localhost:8080/?backendUrl=https://vuetify-feedback-api.herokuapp.com](http://localhost:8080/?backendUrl=http://localhost:3030) in your browser. (If you have the a local replica server of the default got from [this repo](https://github.com/Tinitto/feedback-api), you can use ```http://localhost:3030``` as the ```backendUrl``` query parameter)
+6. Set up a local server of the feedback API as shown in the steps on the README.md file of the [feedback-api repo](https://github.com/Tinitto/feedback-api) and run it.
+
+7. Go to the url [http://localhost:8080/?backendUrl=http://localhost:3030](http://localhost:8080/?backendUrl=http://localhost:3030) in your browser.
 
 ### On Server
 
@@ -138,10 +140,11 @@ To host the application on Firebase, follow the following steps.
     ```bash
     firebase deploy
     ```
+13. Set up a local server of the feedback API as shown in the steps on the README.md file of the [feedback-api repo](https://github.com/Tinitto/feedback-api) and run it.
 
-13. After deployment is complete, visit the application at ```https:<project-name>.firebaseapp.com?backendUrl=https://vuetify-feedback-api.herokuapp.com```
+14. Go to the url ```https:<project-name>.firebaseapp.com?backendUrl=http://localhost:3030``` in your browser.`
 
-    __Remember to change the ```backendUrl``` query parameter to your own back end server url (based on [this repo](https://github.com/Tinitto/feedback-api)) if you have one__
+    __Remember to change the ```backendUrl``` query parameter to your own back end server url (based on [this repo](https://github.com/Tinitto/feedback-api)) if you have deployed one__
 
 ## Acknowledgements
 

@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <tool-bar :user="currentUser" :logoutFunction="logout" :loginFunction="login"/>
+    <tool-bar :viewWidth="windowWidth" :user="currentUser" :logoutFunction="logout" :loginFunction="login"/>
 
     <v-content>
       <!-- Alert -->
@@ -18,12 +18,14 @@
 
     <loading v-model="$store.state.loading"></loading>
 
-    <app-footer :links="footerLinks">Company</app-footer>
+    <!--<bottom-nav :user="currentUser" class="hidden-md-and-up"></bottom-nav>-->
+    <app-footer :viewWidth="windowWidth" :user="currentUser" :links="footerLinks">Company</app-footer>
   </v-app>
 </template>
 
 <script>
 import ToolBar from "./components/ToolBar";
+import BottomNav from './components/BottomNav';
 import ContainerWrapper from "./components/ContainerWrapper";
 import AppFooter from "./components/AppFooter";
 import LoggedOutView from "./components/LoggedOutView";
@@ -39,13 +41,15 @@ export default {
     AppFooter,
     LoggedOutView,
     ContainerWrapper,
-    Loading
+    Loading,
+    BottomNav
   },
   data() {
     return {
       backendUrl: "",
       redirectUrl: "",
       token: "",
+      windowWidth: 0,
       footerLinks: [
         {
           label: "home",
@@ -61,6 +65,8 @@ export default {
     };
   },
   async created() {
+    window.addEventListener('resize', this.handleWindowResize)
+    this.handleWindowResize();
     const urlParams = new URLSearchParams(window.location.search);
     this.token = urlParams.get("token");
     this.backendUrl = urlParams.get("backendUrl");
@@ -89,6 +95,9 @@ export default {
       }
     });
   },
+  destroyed(){
+    window.removeEventListener('resize', this.handleWindowResize);
+  },
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
@@ -98,6 +107,9 @@ export default {
     }
   },
   methods: {
+    handleWindowResize() {
+      this.windowWidth = window.innerWidth;
+    },
     login() {
       this.authenticate().catch(() => {
         this.logout();

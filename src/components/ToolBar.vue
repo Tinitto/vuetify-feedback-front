@@ -4,12 +4,12 @@
     <v-toolbar-title>App Ratings</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items>
-      <v-btn flat :to="rootUrl">
-        <v-icon class="hidden-md-and-up">home</v-icon>
+      <v-btn flat :to="rootUrl" v-if="!isTabletOrMobileView">
+        <!--<v-icon class="hidden-md-and-up">home</v-icon>-->
         <span class="hidden-sm-and-down">Home</span>
       </v-btn>
-      <v-btn flat :to="usersUrl" v-if="isAppOwnerOrAdmin">
-        <v-icon class="hidden-md-and-up">group</v-icon>
+      <v-btn flat :to="usersUrl" v-if="isAppOwnerOrAdmin && !isTabletOrMobileView">
+        <!--<v-icon class="hidden-md-and-up">group</v-icon>-->
         <span class="hidden-sm-and-down">Users</span>
       </v-btn>
       <v-menu offset-y v-if="user">
@@ -37,9 +37,16 @@ export default {
       validator: prop => typeof prop === "object" || prop === null
     },
     loginFunction: Function,
-    logoutFunction: Function
+    logoutFunction: Function,
+    viewWidth: {
+      type: Number,
+      required: true,
+    }
   },
   computed: {
+    isTabletOrMobileView(){
+      return this.viewWidth <= 960;
+    },
     isAppOwnerOrAdmin() {
       return this.user ? (this.user.isOwner || this.user.isAdmin) : false;
     },
