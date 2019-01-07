@@ -35,6 +35,7 @@ const storeGenerator = function(socketServerUrl) {
         text: undefined,
         status: false
       },
+      formVisible: false,
       loading: false
     },
     mutations: {
@@ -42,13 +43,19 @@ const storeGenerator = function(socketServerUrl) {
         state.backendUrl = payload;
       },
       updateRedirectUrl(state, payload) {
-        state.RedirectUrl = payload;
+        state.redirectUrl = payload;
       },
       showLoading(state) {
         state.loading = true;
       },
       hideLoading(state) {
         state.loading = false;
+      },
+      showForm(state) {
+        state.formVisible = true;
+      },
+      hideForm(state) {
+        state.formVisible = false;
       },
       alertError(state, text) {
         state.message.text = text;

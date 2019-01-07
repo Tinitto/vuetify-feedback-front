@@ -33,7 +33,8 @@ import { mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   data: () => ({
     error: undefined,
-    showFeedback: false
+    showFeedback: false,
+    redirectUrl: undefined,
   }),
   components: {
     AppBanner,
@@ -59,6 +60,9 @@ export default {
         this.updateRatings(ratingsQuery);
       });
     });
+
+    this.redirectUrl = this.$store.state.redirectUrl || this.$router.currentRoute.fullPath;
+    this.showFeedbackFromQueryParam();    
   },
   computed: {
     isAppOwnerOrAdmin() {
@@ -127,10 +131,15 @@ export default {
     ...mapActions("ratings", {
       createRating: "create"
     }),
-    ...mapMutations(["alertError", "alertSuccess"]),
+    ...mapMutations(["alertError", "alertSuccess", "showForm", "hideForm"]),
     ...mapActions("auth", {
       authenticate: "authenticate"
     }),
+    showFeedbackFromQueryParam(){
+      if(this.$route.query.hasOwnProperty('showFeedback')){
+        this.showFeedback = true;
+      }
+    },
     deleteAppAndRedirect() {
       if (!this.isAppOwnerOrAdmin) {
         this.alertError("You don't have enough privileges to do this");
@@ -155,8 +164,13 @@ export default {
     },
     closeFeedbackForm() {
       this.showFeedback = false;
+      this.hideForm();
+      if(this.redirectUrl){
+        window.location.replace(this.redirectUrl);
+      }
     },
     showFeedbackForm() {
+      this.showForm();
       this.showFeedback = true;
     },
     createRatingAndCloseDialog(data) {

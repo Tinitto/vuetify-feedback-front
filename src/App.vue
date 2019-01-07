@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <tool-bar :viewWidth="windowWidth" :user="currentUser" :logoutFunction="logout" :loginFunction="login"/>
+    <tool-bar :viewWidth="windowWidth" :user="currentUser" :logoutFunction="logout" :loginFunction="login" v-if="!$store.state.formVisible"/>
 
     <v-content>
       <!-- Alert -->
-      <container-wrapper v-if="$store.state.message.status">
+      <container-wrapper v-if="$store.state.message.status && !$store.state.formVisible">
         <v-alert
           v-model="$store.state.message.status"
           dismissible
@@ -19,7 +19,7 @@
     <loading v-model="$store.state.loading"></loading>
 
     <!--<bottom-nav :user="currentUser" class="hidden-md-and-up"></bottom-nav>-->
-    <app-footer :viewWidth="windowWidth" :user="currentUser" :links="footerLinks">Company</app-footer>
+    <app-footer :viewWidth="windowWidth" :user="currentUser" :links="footerLinks" v-if="!$store.state.formVisible">Company</app-footer>
   </v-app>
 </template>
 
@@ -72,7 +72,7 @@ export default {
     this.backendUrl = urlParams.get("backendUrl");
     this.redirectUrl = urlParams.get("redirectUrl");
 
-    if (this.redirectUrl) {
+    if (this.redirectUrl || !this.token) {
       await this.$store.dispatch("UPDATE_REDIRECT_URL", this.redirectUrl);
     }
 
