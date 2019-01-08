@@ -23,10 +23,10 @@
 </template>
 
 <script>
-import BottomNav from './BottomNav.vue';
+import BottomNav from "./BottomNav.vue";
 export default {
   components: {
-    BottomNav,
+    BottomNav
   },
   props: {
     links: {
@@ -41,13 +41,13 @@ export default {
     },
     viewWidth: {
       type: Number,
-      required: true,
+      required: true
     }
   },
   computed: {
-    isTabletOrMobileView(){
+    isTabletOrMobileView() {
       return this.viewWidth <= 960;
-    },
+    }
   }
-}
+};
 </script>

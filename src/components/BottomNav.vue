@@ -23,11 +23,11 @@ export default {
     user: {
       required: true,
       validator: prop => typeof prop === "object" || prop === null
-    },
+    }
   },
   computed: {
     isAppOwnerOrAdmin() {
-      return this.user ? (this.user.isOwner || this.user.isAdmin) : false;
+      return this.user ? this.user.isOwner || this.user.isAdmin : false;
     },
     routeQuery() {
       let query = {};
@@ -50,7 +50,7 @@ export default {
         query: this.routeQuery
       });
       return routeObject.href;
-    },
+    }
   }
 };
 </script>

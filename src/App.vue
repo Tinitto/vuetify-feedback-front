@@ -25,7 +25,6 @@
 
 <script>
 import ToolBar from "./components/ToolBar";
-import BottomNav from './components/BottomNav';
 import ContainerWrapper from "./components/ContainerWrapper";
 import AppFooter from "./components/AppFooter";
 import LoggedOutView from "./components/LoggedOutView";
@@ -41,8 +40,7 @@ export default {
     AppFooter,
     LoggedOutView,
     ContainerWrapper,
-    Loading,
-    BottomNav
+    Loading
   },
   data() {
     return {
@@ -65,7 +63,7 @@ export default {
     };
   },
   async created() {
-    window.addEventListener('resize', this.handleWindowResize)
+    window.addEventListener("resize", this.handleWindowResize);
     this.handleWindowResize();
     const urlParams = new URLSearchParams(window.location.search);
     this.token = urlParams.get("token");
@@ -95,8 +93,8 @@ export default {
       }
     });
   },
-  destroyed(){
-    window.removeEventListener('resize', this.handleWindowResize);
+  destroyed() {
+    window.removeEventListener("resize", this.handleWindowResize);
   },
   computed: {
     currentUser() {

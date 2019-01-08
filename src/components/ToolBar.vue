@@ -40,15 +40,15 @@ export default {
     logoutFunction: Function,
     viewWidth: {
       type: Number,
-      required: true,
+      required: true
     }
   },
   computed: {
-    isTabletOrMobileView(){
+    isTabletOrMobileView() {
       return this.viewWidth <= 960;
     },
     isAppOwnerOrAdmin() {
-      return this.user ? (this.user.isOwner || this.user.isAdmin) : false;
+      return this.user ? this.user.isOwner || this.user.isAdmin : false;
     },
     routeQuery() {
       let query = {};

@@ -34,7 +34,7 @@ export default {
   data: () => ({
     error: undefined,
     showFeedback: false,
-    redirectUrl: undefined,
+    redirectUrl: undefined
   }),
   components: {
     AppBanner,
@@ -61,8 +61,9 @@ export default {
       });
     });
 
-    this.redirectUrl = this.$store.state.redirectUrl || this.$router.currentRoute.fullPath;
-    this.showFeedbackFromQueryParam();    
+    this.redirectUrl =
+      this.$store.state.redirectUrl || this.$router.currentRoute.fullPath;
+    this.showFeedbackFromQueryParam();
   },
   computed: {
     isAppOwnerOrAdmin() {
@@ -135,9 +136,9 @@ export default {
     ...mapActions("auth", {
       authenticate: "authenticate"
     }),
-    showFeedbackFromQueryParam(){
-      if(this.$route.query.hasOwnProperty('showFeedback')){
-        this.showFeedback = true;
+    showFeedbackFromQueryParam() {
+      if (this.$route.query.hasOwnProperty("showFeedback")) {
+        this.showFeedbackForm();
       }
     },
     deleteAppAndRedirect() {
@@ -165,7 +166,7 @@ export default {
     closeFeedbackForm() {
       this.showFeedback = false;
       this.hideForm();
-      if(this.redirectUrl){
+      if (this.redirectUrl) {
         window.location.replace(this.redirectUrl);
       }
     },
