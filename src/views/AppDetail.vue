@@ -41,6 +41,9 @@ export default {
     RatingList,
     FeedbackForm
   },
+  beforeDestroy() {
+    this.hideForm();
+  },
   created() {
     this.updateApplication(this.applicationId).catch(err => {
       authErrorHandler(err, this.authenticate, () => {
